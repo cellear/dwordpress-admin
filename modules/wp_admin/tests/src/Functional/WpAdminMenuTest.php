@@ -51,6 +51,24 @@ class WpAdminMenuTest extends BrowserTestBase {
     foreach (['Dashboard', 'Posts', 'Media', 'Pages', 'Recipes', 'Comments', 'Appearance', 'Plugins', 'Users', 'Tools', 'Settings'] as $label) {
       $this->assertSession()->elementTextContains('css', '.admin-toolbar', $label);
     }
+    // WordPress look: no Drupal logo, no Umami notice, no Help/user footer in the sidebar.
+    $this->assertSession()->elementNotExists('css', '.admin-toolbar__logo');
+    $this->assertSession()->elementTextNotContains('css', '.admin-toolbar', 'demonstration purposes');
+    $this->assertSession()->elementTextNotContains('css', '.admin-toolbar', 'Help');
+    $this->assertSession()->elementTextNotContains('css', '.admin-toolbar', 'Log out');
+    // The top admin bar carries the site name, New, Comments and the user menu.
+    $this->assertSession()->elementExists('css', '#wp-admin-bar');
+    $this->assertSession()->elementTextContains('css', '#wp-admin-bar', 'Howdy');
+    $this->assertSession()->elementTextContains('css', '#wp-admin-bar', 'New');
+    $this->assertSession()->elementExists('css', '#wp-admin-bar .wp-admin-bar__item--comments');
+    $this->assertSession()->elementTextContains('css', '#wp-admin-bar', (string) $this->config('system.site')->get('name'));
+    // The welcome panel.
+    $this->assertSession()->pageTextContains('Welcome to Dwordpress-admin!');
+    // Anonymous visitors never see the bar.
+    $this->drupalLogout();
+    $this->drupalGet('<front>');
+    $this->assertSession()->elementNotExists('css', '#wp-admin-bar');
+    $this->drupalLogin($this->rootUser);
 
     $tree = \Drupal::menuTree()->load('wp-admin', (new MenuTreeParameters())->onlyEnabledLinks());
     $tree = \Drupal::menuTree()->transform($tree, [['callable' => 'menu.default_tree_manipulators:checkAccess']]);

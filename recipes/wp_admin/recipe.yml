@@ -43,9 +43,14 @@ config:
         - 'delete terms in category'
     user.role.author:
       grantPermission: 'create terms in category'
-    # Replace the Navigation sidebar: one block with the wp-admin menu (two levels),
-    # the user menu and a Help link in the footer. The stock Content/Administration
-    # blocks and Shortcuts are removed; /admin stays reachable via Tools.
+    # WordPress has no logo in the sidebar; the site name lives in the top bar.
+    navigation.settings:
+      simpleConfigUpdate:
+        logo.provider: hide
+    # Replace the Navigation sidebar with one block: the wp-admin menu (two levels).
+    # The stock Content/Administration blocks, Shortcuts, the user block and the
+    # Help link are removed; the user menu moves to the WordPress-style top bar and
+    # /admin stays reachable via Tools -> Drupal Administration.
     navigation.block_layout:
       simpleConfigUpdate:
         sections:
@@ -64,29 +69,5 @@ config:
                   level: 1
                   depth: 1
                 weight: 0
-                additional: {  }
-              33569fac-bd02-4566-b97b-d87da0ddbdeb:
-                uuid: 33569fac-bd02-4566-b97b-d87da0ddbdeb
-                region: footer
-                configuration:
-                  id: navigation_user
-                  label: User
-                  label_display: '0'
-                  provider: navigation
-                weight: 0
-                additional: {  }
-              45a3d65f-b7ab-40b6-91aa-4fc82d0cd711:
-                uuid: 45a3d65f-b7ab-40b6-91aa-4fc82d0cd711
-                region: footer
-                configuration:
-                  id: navigation_link
-                  label: Help
-                  label_display: '0'
-                  provider: navigation
-                  context_mapping: {  }
-                  title: Help
-                  uri: 'internal:/admin/help'
-                  icon_class: help
-                weight: -2
                 additional: {  }
             third_party_settings: {  }

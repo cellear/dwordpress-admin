@@ -14,5 +14,19 @@
 .wp-admin-glance { list-style: none; padding: 0; margin: 0; }
 .wp-admin-glance li { margin: .3em 0; }
 .wp-admin-welcome__cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+.wp-admin-welcome__body.wp-admin-welcome__cols { padding: 24px 32px; }
 .wp-admin-terms { display: grid; grid-template-columns: minmax(18em, 1fr) 2fr; gap: 2rem; align-items: start; }
 @media (max-width: 60em) { .wp-admin-dashboard, .wp-admin-welcome__cols, .wp-admin-terms { grid-template-columns: 1fr; } }
+
+/* Dashboard welcome panel, like WordPress's. */
+.wp-admin-welcome { border: 1px solid #c3c4c7; border-radius: 4px; background: #fff; overflow: hidden; }
+.wp-admin-welcome > summary { list-style: none; cursor: pointer; padding: 32px 32px 24px; background: #1d2327 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1' height='1'/%3E"); color: #f0f0f1; }
+.wp-admin-welcome > summary::-webkit-details-marker { display: none; }
+.wp-admin-welcome > summary h2 { margin: 0 0 8px; font-size: 32px; line-height: 1.2; color: #fff; }
+.wp-admin-welcome > summary p { margin: 0; font-size: 15px; color: #f0f0f1; }
+.wp-admin-welcome > summary p a { color: #f0f0f1; }
+.wp-admin-welcome > summary .wp-admin-welcome__dismiss { float: right; font-size: 13px; color: #f0f0f1; }
+.wp-admin-welcome[open] > summary .wp-admin-welcome__dismiss::before { content: "✕ "; }
+.wp-admin-welcome:not([open]) > summary .wp-admin-welcome__dismiss::before { content: "▸ "; }
+.wp-admin-welcome__body { padding: 24px 32px; }
+.wp-admin-welcome__body h3 { margin: 0 0 6px; font-size: 20px; font-weight: 400; }

@@ -1,0 +1,107 @@
+/*
+ * WordPress color scheme for the Drupal Navigation sidebar.
+ * Loaded after core's navigation CSS (appended to navigation/internal.navigation).
+ * Core wraps its rules in :is(#extra-specificity-hack, [data-drupal-admin-styles]),
+ * so overrides use the same wrapper. Colors: wp-admin "Default" scheme.
+ */
+/* The toolbar-button component stylesheet loads after this file, so the variable
+   overrides need the same ID-level specificity hack core uses for its rules. */
+:is(#extra-specificity-hack, [data-drupal-admin-styles]) {
+  --wp-sidebar-bg: #1d2327;
+  --wp-sidebar-bg-hover: #2c3338;
+  --wp-sidebar-text: #f0f0f1;
+  --wp-sidebar-text-hover: #72aee6;
+  --wp-sidebar-current: #2271b1;
+  --wp-sidebar-width: 160px;
+
+  --toolbar-button-bg: transparent;
+  --toolbar-button-color: var(--wp-sidebar-text);
+  --toolbar-button-hover-bg: var(--wp-sidebar-bg-hover);
+  --toolbar-button-hover-color: var(--wp-sidebar-text-hover);
+  --toolbar-button-focus-color: var(--wp-sidebar-text-hover);
+  --toolbar-button-current-bg: var(--wp-sidebar-current);
+  --toolbar-button-current-color: #fff;
+  --toolbar-button-has-active-child-bg: var(--wp-sidebar-current);
+  --toolbar-button-has-active-child-color: #fff;
+  --admin-toolbar-color-expanded: var(--wp-sidebar-bg-hover);
+}
+
+/* WordPress's sidebar is 160px wide; keep Drupal's collapsed (icon-only) width. */
+@media (min-width: 560px) {
+  body { --admin-toolbar-sidebar-width: var(--wp-sidebar-width, 160px); }
+}
+@media (min-width: 1024px) {
+  body { --admin-toolbar-sidebar-width: 4.5rem; }
+  [data-admin-toolbar="expanded"] body { --admin-toolbar-sidebar-width: var(--wp-sidebar-width, 160px); }
+}
+
+:is(#extra-specificity-hack, [data-drupal-admin-styles]) {
+  /* Surfaces. */
+  &.admin-toolbar,
+  .admin-toolbar__header,
+  .admin-toolbar__footer,
+  .admin-toolbar__content,
+  .admin-toolbar__scroll-wrapper {
+    background: var(--wp-sidebar-bg);
+    background-color: var(--wp-sidebar-bg);
+    border-color: transparent;
+  }
+  &.admin-toolbar {
+    inset-block-start: var(--wp-admin-bar-height, 32px);
+    block-size: calc(100vh - var(--wp-admin-bar-height, 32px));
+  }
+  .admin-toolbar__content::after,
+  .toolbar-block::after { border-color: transparent !important; }
+  .toolbar-block__title { color: #a7aaad; }
+
+  /* Buttons: no light outline on dark, WordPress hover colors. */
+  .toolbar-button {
+    font-size: 13px;
+    border-radius: 0;
+  }
+  .toolbar-button:hover { outline-color: transparent; }
+  .toolbar-button:focus { outline-color: var(--wp-sidebar-text-hover); }
+  [data-toolbar-popover-wrapper] .toolbar-button--dark,
+  [data-toolbar-popover-wrapper] .toolbar-button--dark:hover,
+  [data-toolbar-popover-wrapper] .toolbar-popover__header .toolbar-button { color: #fff; }
+
+  /* Flyout (popover) panels. */
+  [data-toolbar-popover-wrapper] {
+    background-color: var(--wp-sidebar-bg-hover);
+    color: var(--wp-sidebar-text);
+    box-shadow: 0 3px 5px rgba(0, 0, 0, .3);
+  }
+  .toolbar-popover--expanded { background-color: var(--wp-sidebar-bg-hover); }
+  .toolbar-menu__item--level-1:has(> [data-toolbar-menu-trigger][aria-expanded="true"]) { background: var(--wp-sidebar-bg-hover); }
+  .toolbar-menu__link {
+    color: var(--wp-sidebar-text);
+    font-size: 13px;
+  }
+  .toolbar-menu__link:hover,
+  .toolbar-menu__link:focus { color: var(--wp-sidebar-text-hover); background-color: transparent; }
+  .toolbar-menu__link.current,
+  .toolbar-menu__link:has(+ .toolbar-menu .is-active) { color: #fff; font-weight: 600; }
+
+  /* Collapse control, mobile control bar. */
+  .admin-toolbar__expand-button {
+    color: var(--wp-sidebar-text);
+    border-color: #50575e;
+    background-color: var(--wp-sidebar-bg);
+  }
+  .admin-toolbar__expand-button:hover { color: var(--wp-sidebar-text-hover); }
+  &.admin-toolbar-control-bar { background-color: var(--wp-sidebar-bg); border-color: transparent; }
+  .admin-toolbar-control-bar__burger .toolbar-button__icon,
+  .admin-toolbar__close-button .toolbar-button__icon { filter: brightness(2.2); }
+
+  /* Flyouts and the mobile control bar start below the WordPress bar. */
+  @media (min-width: 1024px) {
+    [data-toolbar-popover-wrapper] {
+      inset-block-start: var(--wp-admin-bar-height, 32px);
+      block-size: calc(100vh - var(--wp-admin-bar-height, 32px));
+    }
+  }
+  &.admin-toolbar-control-bar { inset-block-start: var(--wp-admin-bar-height, 32px); }
+
+  /* Core's page-actions top bar sits below the WordPress bar. */
+  &.top-bar { inset-block-start: var(--wp-admin-bar-height, 32px); }
+}

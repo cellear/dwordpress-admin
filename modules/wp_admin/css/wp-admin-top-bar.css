@@ -1,0 +1,97 @@
+/* WordPress-style admin bar: 32px, black, fixed to the top of every page. */
+:root {
+  --wp-admin-bar-height: 32px;
+  --wp-color-bar: #1d2327;
+  --wp-color-bar-hover: #2c3338;
+  --wp-color-text: #f0f0f1;
+  --wp-color-link-hover: #72aee6;
+  --wp-color-badge: #d63638;
+}
+.wp-admin-bar {
+  position: fixed;
+  inset-block-start: 0;
+  inset-inline: 0;
+  z-index: 99999;
+  display: flex;
+  justify-content: space-between;
+  box-sizing: border-box;
+  height: var(--wp-admin-bar-height);
+  padding: 0 8px;
+  background: var(--wp-color-bar);
+  color: var(--wp-color-text);
+  font: 400 13px/32px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+}
+.wp-admin-bar__menu { display: flex; margin: 0; padding: 0; list-style: none; }
+.wp-admin-bar__item { position: relative; margin: 0; }
+.wp-admin-bar__link,
+.wp-admin-bar__submenu a {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: var(--wp-admin-bar-height);
+  padding: 0 8px;
+  color: var(--wp-color-text);
+  text-decoration: none;
+  white-space: nowrap;
+}
+.wp-admin-bar__item:hover > .wp-admin-bar__link,
+.wp-admin-bar__item:focus-within > .wp-admin-bar__link,
+.wp-admin-bar__submenu a:hover,
+.wp-admin-bar__submenu a:focus {
+  background: var(--wp-color-bar-hover);
+  color: var(--wp-color-link-hover);
+}
+.wp-admin-bar__icon { font-size: 18px; line-height: 1; }
+.wp-admin-bar__logo {
+  display: inline-grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--wp-color-text);
+  border-radius: 50%;
+  font: 700 13px/1 Georgia, serif;
+}
+.wp-admin-bar__item:hover .wp-admin-bar__logo { border-color: var(--wp-color-link-hover); }
+.wp-admin-bar__count {
+  display: inline-block;
+  min-width: 18px;
+  padding: 0 5px;
+  border-radius: 9px;
+  background: #50575e;
+  color: #fff;
+  font-size: 11px;
+  line-height: 18px;
+  text-align: center;
+}
+.wp-admin-bar__count--pending { background: var(--wp-color-badge); }
+.wp-admin-bar__avatar {
+  display: inline-grid;
+  place-items: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #50575e;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 600;
+}
+.wp-admin-bar__submenu {
+  position: absolute;
+  inset-block-start: 100%;
+  inset-inline-start: 0;
+  display: none;
+  min-width: 160px;
+  margin: 0;
+  padding: 6px 0;
+  list-style: none;
+  background: var(--wp-color-bar-hover);
+  box-shadow: 0 3px 5px rgba(0, 0, 0, .2);
+}
+.wp-admin-bar__submenu--right { inset-inline-start: auto; inset-inline-end: 0; }
+.wp-admin-bar__submenu a { height: 26px; line-height: 26px; }
+.wp-admin-bar__item--has-menu:hover > .wp-admin-bar__submenu,
+.wp-admin-bar__item--has-menu:focus-within > .wp-admin-bar__submenu { display: block; }
+
+/* Push the page and the Navigation sidebar below the bar. */
+body { padding-block-start: var(--wp-admin-bar-height); }
+html { scroll-padding-block-start: var(--wp-admin-bar-height); }

@@ -76,7 +76,7 @@ if (hasForm) {
 
 // 5. Stock Drupal admin still reachable from Tools.
 await p.goto(`${BASE}/wp-admin/tools/drupal`);
-await p.click('a[href$="/admin"]');
+await p.click('.wp-admin-page a[href$="/admin"]');
 await p.waitForLoadState('domcontentloaded');
 check('Tools → Drupal Administration reaches /admin', /\/admin$/.test(p.url()) && (await p.textContent('h1')).includes('Administration'));
 

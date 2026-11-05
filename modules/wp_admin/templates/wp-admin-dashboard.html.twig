@@ -1,9 +1,13 @@
 {# Dashboard layout: a grid of cards. panels: list of {id, title, body, wide}. #}
 <div class="wp-admin-dashboard">
   {% for panel in panels %}
-    <div class="wp-admin-card{% if panel.wide %} wp-admin-dashboard__welcome{% endif %}" id="wp-admin-{{ panel.id }}">
-      <h2 class="wp-admin-card__title">{{ panel.title }}</h2>
-      <div class="wp-admin-card__body">{{ panel.body }}</div>
-    </div>
+    {% if panel.title %}
+      <div class="wp-admin-card{% if panel.wide %} wp-admin-dashboard__welcome{% endif %}" id="wp-admin-{{ panel.id }}">
+        <h2 class="wp-admin-card__title">{{ panel.title }}</h2>
+        <div class="wp-admin-card__body">{{ panel.body }}</div>
+      </div>
+    {% else %}
+      <div class="{% if panel.wide %}wp-admin-dashboard__welcome{% endif %}" id="wp-admin-{{ panel.id }}">{{ panel.body }}</div>
+    {% endif %}
   {% endfor %}
 </div>

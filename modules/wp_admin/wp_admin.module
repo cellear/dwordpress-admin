@@ -2,8 +2,10 @@
 
 /**
  * @file
- * WordPress-style admin: theme hooks.
+ * WordPress-style admin: theme hooks, sidebar tweaks and the top admin bar.
  */
+
+use Drupal\Core\Session\AccountInterface;
 
 /**
  * Implements hook_theme().
@@ -18,5 +20,50 @@ function wp_admin_theme(): array {
       'variables' => ['panels' => []],
       'template' => 'wp-admin-dashboard',
     ],
+    'wp_admin_top_bar' => [
+      'variables' => ['logo_menu' => [], 'site' => [], 'comments' => NULL, 'new' => [], 'user' => []],
+      'template' => 'wp-admin-top-bar',
+    ],
+  ];
+}
+
+/**
+ * Implements hook_library_info_alter().
+ *
+ * Appends the WordPress color scheme to the Navigation module's own stylesheet
+ * so it loads after core's rules wherever the sidebar is rendered.
+ */
+function wp_admin_library_info_alter(array &$libraries, string $extension): void {
+  if ($extension === 'navigation' && isset($libraries['internal.navigation'])) {
+    $path = '/' . \Drupal::service('extension.list.module')->getPath('wp_admin') . '/css/wp-admin-navigation.css';
+    $libraries['internal.navigation']['css']['theme'][$path] = ['weight' => 10];
+  }
+}
+
+/**
+ * Implements hook_navigation_content_top_alter().
+ *
+ * Drops Umami's "This site is intended for demonstration purposes" notice from
+ * the sidebar; WordPress has nothing like it there.
+ */
+function wp_admin_navigation_content_top_alter(array &$content_top): void {
+  unset($content_top['experimental-profile-warning']);
+}
+
+/**
+ * Implements hook_page_top().
+ *
+ * The WordPress admin bar: a 32px black bar on every page for users who can
+ * see the Navigation sidebar.
+ */
+function wp_admin_page_top(array &$page_top): void {
+  $account = \Drupal::currentUser();
+  if (!$account->hasPermission('access navigation')) {
+    return;
+  }
+  $page_top['wp_admin_top_bar'] = [
+    '#lazy_builder' => ['wp_admin.top_bar:build', []],
+    '#create_placeholder' => TRUE,
+    '#cache' => ['contexts' => ['user.permissions']],
   ];
 }

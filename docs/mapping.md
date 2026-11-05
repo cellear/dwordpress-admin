@@ -148,6 +148,17 @@ an explanation.
 - Everything under `/wp-admin/…` uses the admin theme (Claro). Visual mimicry of the
   WordPress styling is out of scope unless requested.
 
+## Look and feel (Phase C)
+
+| WordPress | Drupal, after the recipe |
+|---|---|
+| Dark left menu (#1d2327, light text, blue current item, white icons) | The Navigation sidebar restyled by `modules/wp_admin/css/wp-admin-navigation.css`, appended to core's navigation stylesheet; 160px wide like WordPress; the module's own icons in white |
+| No logo in the sidebar; no site notices | `navigation.settings` logo hidden by the recipe; Umami's "demonstration purposes" notice removed by `hook_navigation_content_top_alter()` |
+| Toolbar (admin bar): W logo menu, site name, Comments count, + New, Howdy | `#wp-admin-bar`, rendered by `hook_page_top()` on every page for users who can see the sidebar: "D" logo menu (About Drupal, Drupal Administration, Status report, Documentation, Support), site name → front page (Visit Site, Dashboard, Themes, Menus), Comments in moderation count → Comments, + New (Post, Media, Page, Recipe, User), Howdy, {name} (Edit Profile, View Profile, Log Out). Hover menus, no JavaScript |
+| Sidebar footer: Collapse menu | Drupal's collapse control stays; Help and the user block are gone (the user menu is in the top bar) |
+| Dashboard "Welcome to WordPress!" panel with Dismiss | "Welcome to Dwordpress-admin!" panel in the same dark style; Dismiss collapses it (a `<details>` element, nothing stored) |
+| Content area styling | Stays Claro |
+
 ## Implementation status
 
 Implemented in `recipes/wp_admin` + `modules/wp_admin` (see README for how to apply).
@@ -155,6 +166,7 @@ Implemented in `recipes/wp_admin` + `modules/wp_admin` (see README for how to ap
 | Area | Status |
 |---|---|
 | Sidebar (Navigation block with the `wp-admin` menu, icons) | done |
+| WordPress color scheme for sidebar, top admin bar, welcome panel | done |
 | Dashboard (Welcome, Site Health, At a Glance, Activity, Quick Draft, News) | done |
 | Posts / Pages / Recipes list views with moderation-state filter and Add buttons | done |
 | Categories / Tags / Recipe Categories pages (add form + table) | done |

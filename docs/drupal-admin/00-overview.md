@@ -1,6 +1,6 @@
 # Drupal wp-admin: every sidebar item
 
-Captured 2026-11-05 from Drupal with the wp_admin recipe applied on Umami. 53 pages visited, 0 problems.
+Captured 2026-11-05 from Drupal with the wp_admin recipe applied on Umami. 49 pages visited, 0 problems.
 
 | # | Sidebar item | URL | Status | Heading | Screenshot |
 |---|---|---|---|---|---|
@@ -53,7 +53,3 @@ Captured 2026-11-05 from Drupal with the wp_admin recipe applied on Umami. 53 pa
 | 47 | Settings → Media | `/en/wp-admin/settings/media` | 200 | Media Settings | [view](screenshots/47-settings-media.jpg) |
 | 48 | Settings → Permalinks | `/en/wp-admin/settings/permalinks` | 200 | Permalink Settings | [view](screenshots/48-settings-permalinks.jpg) |
 | 49 | Settings → Privacy | `/en/wp-admin/settings/privacy` | 200 | Privacy | [view](screenshots/49-settings-privacy.jpg) |
-| 50 | Help | `/en/admin/help` | 200 | Help | [view](screenshots/50-help.jpg) |
-| 51 | admin | `/en/user/1` | 200 | admin | [view](screenshots/51-admin.jpg) |
-| 52 | admin → View profile | `/en/user/1` | 200 | admin | [view](screenshots/52-admin-view-profile.jpg) |
-| 53 | admin → Edit profile | `/en/user/1/edit` | 200 | admin | [view](screenshots/53-admin-edit-profile.jpg) |

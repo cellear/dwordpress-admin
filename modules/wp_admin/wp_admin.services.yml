@@ -2,3 +2,6 @@ services:
   wp_admin.pages:
     class: Drupal\wp_admin\PageRepository
     arguments: ['@module_handler', '@config.factory']
+  wp_admin.top_bar:
+    class: Drupal\wp_admin\TopBarBuilder
+    arguments: ['@current_user', '@entity_type.manager', '@config.factory', '@module_handler']

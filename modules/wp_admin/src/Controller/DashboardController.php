@@ -69,10 +69,24 @@ class DashboardController extends ControllerBase {
     foreach ($cols as [$h, $p, $link]) {
       $items[] = ['#type' => 'inline_template', '#template' => '<div><h3>{{ h }}</h3><p>{{ p }}</p><p>{{ link }}</p></div>', '#context' => ['h' => $h, 'p' => $p, 'link' => $link->toString()]];
     }
-    return ['id' => 'welcome', 'wide' => TRUE, 'title' => $this->t('Welcome to Drupal!'), 'body' => [
-      ['#markup' => '<p>' . $this->t('This is the WordPress-style admin running on Drupal @version. Learn more about <a href=":url">what is different in Drupal</a>.', ['@version' => \Drupal::VERSION, ':url' => Url::fromRoute('wp_admin.page', ['section' => 'tools', 'page' => 'drupal'])->toString()]) . '</p>'],
-      ['#type' => 'container', '#attributes' => ['class' => ['wp-admin-welcome__cols']], 'cols' => $items],
-    ]];
+    // A <details> element: the summary is the dark WordPress-style header and
+    // doubles as the "Dismiss" control (collapses the panel; nothing is stored).
+    $panel = [
+      '#type' => 'html_tag',
+      '#tag' => 'details',
+      '#attributes' => ['class' => ['wp-admin-welcome'], 'open' => 'open'],
+      'summary' => [
+        '#type' => 'inline_template',
+        '#template' => '<summary><span class="wp-admin-welcome__dismiss">{{ dismiss }}</span><h2>{{ title }}</h2><p>{{ intro }}</p></summary>',
+        '#context' => [
+          'dismiss' => $this->t('Dismiss'),
+          'title' => $this->t('Welcome to Dwordpress-admin!'),
+          'intro' => $this->t('The WordPress admin experience, running on Drupal @version. <a href=":url">Learn more about what is different in Drupal.</a>', ['@version' => \Drupal::VERSION, ':url' => Url::fromRoute('wp_admin.page', ['section' => 'tools', 'page' => 'drupal'])->toString()]),
+        ],
+      ],
+      'body' => ['#type' => 'container', '#attributes' => ['class' => ['wp-admin-welcome__body', 'wp-admin-welcome__cols']], 'cols' => $items],
+    ];
+    return ['id' => 'welcome', 'wide' => TRUE, 'title' => NULL, 'body' => $panel];
   }
 
   /**

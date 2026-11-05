@@ -13,7 +13,9 @@ of a Drupal site installed with the Umami demo profile.
   under `/wp-admin`, the Dashboard, the Posts/Pages/Recipes list view, the
   Categories/Tags pages, six Settings forms that write real Drupal config, and YAML
   page texts (`pages/`) that explain each WordPress feature Drupal lacks and link to the
-  nearest Drupal screen. Every item in the WordPress menu lands on a page.
+  nearest Drupal screen. Every item in the WordPress menu lands on a page. It also
+  restyles the Navigation sidebar in the WordPress color scheme and adds the black
+  WordPress-style admin bar (site name, Comments, + New, Howdy) to every page.
 - `docs/mapping.md` — how each wp-admin page maps to Drupal, and what was decided.
 - `docs/wp-admin/` — the WordPress 7.1 admin, every menu item and page, with screenshots.
 - `docs/drupal-admin/` — the result: every sidebar item on Drupal, with screenshots.

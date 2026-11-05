@@ -3,3 +3,8 @@ admin:
   css:
     theme:
       css/wp-admin.css: {}
+top_bar:
+  version: 1.x
+  css:
+    theme:
+      css/wp-admin-top-bar.css: {}
