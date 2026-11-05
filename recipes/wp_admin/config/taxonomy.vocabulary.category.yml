@@ -1,0 +1,8 @@
+langcode: en
+status: true
+dependencies: {  }
+name: Categories
+vid: category
+description: 'Hierarchical categories for articles, like WordPress categories.'
+weight: 0
+new_revision: false

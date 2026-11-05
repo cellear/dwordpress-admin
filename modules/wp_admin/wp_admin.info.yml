@@ -1,0 +1,15 @@
+name: 'WordPress-style admin'
+type: module
+description: 'Companion module for the wp_admin recipe: WordPress wp-admin menu tree, dashboard, list views, settings forms and explanation pages on top of Drupal.'
+package: 'WordPress-style admin'
+core_version_requirement: ^11.2
+dependencies:
+  - drupal:node
+  - drupal:views
+  - drupal:taxonomy
+  - drupal:media
+  - drupal:comment
+  - drupal:navigation
+  - drupal:content_moderation
+  - drupal:image
+  - drupal:path

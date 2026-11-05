@@ -1,0 +1,92 @@
+name: 'WordPress-style admin'
+description: 'Replaces the Drupal admin sidebar with the WordPress wp-admin menu tree (Dashboard, Posts, Media, Pages, Recipes, Comments, Appearance, Plugins, Users, Tools, Settings) on a site installed with the Umami demo profile. Adds a Category vocabulary and comments to Article.'
+type: 'Administration'
+recipes:
+  # Comment type, comment field storage, comment admin views and permissions.
+  # (Not core/recipes/article_comment: it depends on article_content_type, which
+  # would add body/field_image fields that Umami's Article does not use.)
+  - core/recipes/comment_base
+install:
+  - wp_admin
+config:
+  strict: false
+  import:
+    # A module installed from inside a recipe runs in config-sync mode, which
+    # skips config entities; importing explicitly creates the menu and the views.
+    wp_admin: '*'
+  actions:
+    # Category checkboxes + comments on the Article form.
+    core.entity_form_display.node.article.default:
+      setComponents:
+        - name: field_category
+          options: { type: options_buttons, weight: 11, region: content, settings: {}, third_party_settings: {} }
+        - name: comment
+          options: { type: comment_default, weight: 20, region: content, settings: {}, third_party_settings: {} }
+    # Category and comments on rendered articles (Umami uses the "full" view mode for node pages).
+    core.entity_view_display.node.article.default:
+      setComponents:
+        - name: field_category
+          options: { type: entity_reference_label, label: above, weight: 12, region: content, settings: { link: true }, third_party_settings: {} }
+        - name: comment
+          options: { type: comment_default, label: above, weight: 110, region: content, settings: { view_mode: default, pager_id: 0 }, third_party_settings: {} }
+    core.entity_view_display.node.article.full:
+      setComponents:
+        - name: field_category
+          options: { type: entity_reference_label, label: above, weight: 12, region: content, settings: { link: true }, third_party_settings: {} }
+        - name: comment
+          options: { type: comment_default, label: above, weight: 110, region: content, settings: { view_mode: default, pager_id: 0 }, third_party_settings: {} }
+    # Umami's editors manage tags and recipe categories; let them manage categories too.
+    user.role.editor:
+      grantPermissions:
+        - 'create terms in category'
+        - 'edit terms in category'
+        - 'delete terms in category'
+    user.role.author:
+      grantPermission: 'create terms in category'
+    # Replace the Navigation sidebar: one block with the wp-admin menu (two levels),
+    # the user menu and a Help link in the footer. The stock Content/Administration
+    # blocks and Shortcuts are removed; /admin stays reachable via Tools.
+    navigation.block_layout:
+      simpleConfigUpdate:
+        sections:
+          - layout_id: navigation_layout
+            layout_settings:
+              label: ''
+            components:
+              b3e7c6f9-07a3-4468-86eb-21ac9f552a2c:
+                uuid: b3e7c6f9-07a3-4468-86eb-21ac9f552a2c
+                region: content
+                configuration:
+                  id: 'navigation_menu:wp-admin'
+                  label: 'WordPress admin'
+                  label_display: '0'
+                  provider: navigation
+                  level: 1
+                  depth: 1
+                weight: 0
+                additional: {  }
+              33569fac-bd02-4566-b97b-d87da0ddbdeb:
+                uuid: 33569fac-bd02-4566-b97b-d87da0ddbdeb
+                region: footer
+                configuration:
+                  id: navigation_user
+                  label: User
+                  label_display: '0'
+                  provider: navigation
+                weight: 0
+                additional: {  }
+              45a3d65f-b7ab-40b6-91aa-4fc82d0cd711:
+                uuid: 45a3d65f-b7ab-40b6-91aa-4fc82d0cd711
+                region: footer
+                configuration:
+                  id: navigation_link
+                  label: Help
+                  label_display: '0'
+                  provider: navigation
+                  context_mapping: {  }
+                  title: Help
+                  uri: 'internal:/admin/help'
+                  icon_class: help
+                weight: -2
+                additional: {  }
+            third_party_settings: {  }

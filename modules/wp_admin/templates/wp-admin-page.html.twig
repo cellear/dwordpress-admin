@@ -1,0 +1,51 @@
+{#
+/**
+ * @file
+ * An adapted / explained wp-admin page.
+ *
+ * Available variables:
+ * - page: title, intro, wordpress, drupal, sections[] (heading, text, links[]), note.
+ */
+#}
+<div class="wp-admin-page wp-admin-page--{{ page.section }}-{{ page.id }}">
+  {% if page.intro %}
+    <p class="wp-admin-page__intro">{{ page.intro }}</p>
+  {% endif %}
+  {% if page.wordpress %}
+    <div class="wp-admin-section">
+      <h2>{{ 'What WordPress does here'|t }}</h2>
+      {{ page.wordpress|nl2br }}
+    </div>
+  {% endif %}
+  {% if page.drupal %}
+    <div class="wp-admin-section">
+      <h2>{{ 'What Drupal does instead'|t }}</h2>
+      {{ page.drupal|nl2br }}
+    </div>
+  {% endif %}
+  {% for section in page.sections %}
+    <div class="wp-admin-section">
+      {% if section.heading %}<h2>{{ section.heading }}</h2>{% endif %}
+      {% if section.text %}<p>{{ section.text|nl2br }}</p>{% endif %}
+      {% if section.links %}
+        <ul class="wp-admin-links">
+          {% for link in section.links %}
+            <li>
+              {% if link.link %}
+                {{ link.link }}
+              {% else %}
+                <span>{{ link.title }}</span>
+                {% if link.missing_module %}<em class="wp-admin-links__desc">{{ '(requires the @module module, which is not installed)'|t({'@module': link.missing_module}) }}</em>{% endif %}
+              {% endif %}
+              {% if link.description %}<span class="wp-admin-links__desc">— {{ link.description }}</span>{% endif %}
+            </li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    </div>
+  {% endfor %}
+  {% if page.note %}
+    <p class="wp-admin-note">{{ page.note }}</p>
+  {% endif %}
+  {{ extra }}
+</div>

@@ -1,0 +1,4 @@
+services:
+  wp_admin.pages:
+    class: Drupal\wp_admin\PageRepository
+    arguments: ['@module_handler', '@config.factory']

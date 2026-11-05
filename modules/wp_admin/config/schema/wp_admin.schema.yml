@@ -1,0 +1,7 @@
+wp_admin.settings:
+  type: config_object
+  label: 'WordPress-style admin settings'
+  mapping:
+    privacy_page:
+      type: integer
+      label: 'Node ID of the privacy policy page (0 for none)'

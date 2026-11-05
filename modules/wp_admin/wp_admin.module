@@ -1,0 +1,22 @@
+<?php
+
+/**
+ * @file
+ * WordPress-style admin: theme hooks.
+ */
+
+/**
+ * Implements hook_theme().
+ */
+function wp_admin_theme(): array {
+  return [
+    'wp_admin_page' => [
+      'variables' => ['page' => [], 'extra' => []],
+      'template' => 'wp-admin-page',
+    ],
+    'wp_admin_dashboard' => [
+      'variables' => ['panels' => []],
+      'template' => 'wp-admin-dashboard',
+    ],
+  ];
+}

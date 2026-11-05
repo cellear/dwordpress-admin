@@ -1,0 +1,141 @@
+# All routes live under /wp-admin and use the admin theme.
+wp_admin.dashboard:
+  path: '/wp-admin'
+  defaults:
+    _controller: '\Drupal\wp_admin\Controller\DashboardController::build'
+    _title: 'Dashboard'
+  requirements:
+    _permission: 'access administration pages'
+  options:
+    _admin_route: TRUE
+
+wp_admin.terms:
+  path: '/wp-admin/terms/{taxonomy_vocabulary}'
+  defaults:
+    _controller: '\Drupal\wp_admin\Controller\TermsController::build'
+    _title_callback: '\Drupal\wp_admin\Controller\TermsController::title'
+  requirements:
+    _entity_access: 'taxonomy_vocabulary.view'
+  options:
+    _admin_route: TRUE
+    parameters:
+      taxonomy_vocabulary:
+        type: entity:taxonomy_vocabulary
+
+wp_admin.posts_categories:
+  path: '/wp-admin/posts/categories'
+  defaults:
+    _controller: '\Drupal\wp_admin\Controller\TermsController::redirectTo'
+    vid: category
+  requirements:
+    _permission: 'access taxonomy overview'
+  options:
+    _admin_route: TRUE
+wp_admin.posts_tags:
+  path: '/wp-admin/posts/tags'
+  defaults:
+    _controller: '\Drupal\wp_admin\Controller\TermsController::redirectTo'
+    vid: tags
+  requirements:
+    _permission: 'access taxonomy overview'
+  options:
+    _admin_route: TRUE
+wp_admin.recipes_categories:
+  path: '/wp-admin/recipes/categories'
+  defaults:
+    _controller: '\Drupal\wp_admin\Controller\TermsController::redirectTo'
+    vid: recipe_category
+  requirements:
+    _permission: 'access taxonomy overview'
+  options:
+    _admin_route: TRUE
+
+wp_admin.profile:
+  path: '/wp-admin/profile'
+  defaults:
+    _controller: '\Drupal\wp_admin\Controller\RedirectController::profile'
+  requirements:
+    _user_is_logged_in: 'TRUE'
+  options:
+    _admin_route: TRUE
+
+# Explanation / adapted pages rendered from pages/<id>.yml.
+wp_admin.page:
+  path: '/wp-admin/{section}/{page}'
+  defaults:
+    _controller: '\Drupal\wp_admin\Controller\PageController::build'
+    _title_callback: '\Drupal\wp_admin\Controller\PageController::title'
+  requirements:
+    _permission: 'access administration pages'
+    section: 'appearance|plugins|tools|settings'
+    page: '[a-z-]+'
+  options:
+    _admin_route: TRUE
+
+wp_admin.tools:
+  path: '/wp-admin/tools'
+  defaults:
+    _controller: '\Drupal\wp_admin\Controller\PageController::build'
+    _title_callback: '\Drupal\wp_admin\Controller\PageController::title'
+    section: tools
+    page: index
+  requirements:
+    _permission: 'access administration pages'
+  options:
+    _admin_route: TRUE
+
+# Settings forms (WordPress field names, Drupal config underneath).
+wp_admin.settings.general:
+  path: '/wp-admin/settings/general'
+  defaults:
+    _form: '\Drupal\wp_admin\Form\GeneralSettingsForm'
+    _title: 'General Settings'
+  requirements:
+    _permission: 'administer site configuration'
+  options:
+    _admin_route: TRUE
+wp_admin.settings.writing:
+  path: '/wp-admin/settings/writing'
+  defaults:
+    _form: '\Drupal\wp_admin\Form\WritingSettingsForm'
+    _title: 'Writing Settings'
+  requirements:
+    _permission: 'administer site configuration'
+  options:
+    _admin_route: TRUE
+wp_admin.settings.reading:
+  path: '/wp-admin/settings/reading'
+  defaults:
+    _form: '\Drupal\wp_admin\Form\ReadingSettingsForm'
+    _title: 'Reading Settings'
+  requirements:
+    _permission: 'administer site configuration'
+  options:
+    _admin_route: TRUE
+wp_admin.settings.discussion:
+  path: '/wp-admin/settings/discussion'
+  defaults:
+    _form: '\Drupal\wp_admin\Form\DiscussionSettingsForm'
+    _title: 'Discussion Settings'
+  requirements:
+    _permission: 'administer site configuration'
+  options:
+    _admin_route: TRUE
+wp_admin.settings.media:
+  path: '/wp-admin/settings/media'
+  defaults:
+    _form: '\Drupal\wp_admin\Form\MediaSettingsForm'
+    _title: 'Media Settings'
+  requirements:
+    _permission: 'administer site configuration'
+  options:
+    _admin_route: TRUE
+wp_admin.settings.privacy:
+  path: '/wp-admin/settings/privacy'
+  defaults:
+    _form: '\Drupal\wp_admin\Form\PrivacySettingsForm'
+    _title: 'Privacy'
+  requirements:
+    _permission: 'administer site configuration'
+  options:
+    _admin_route: TRUE

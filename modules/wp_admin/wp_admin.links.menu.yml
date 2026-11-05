@@ -1,0 +1,322 @@
+# The WordPress wp-admin menu tree. Labels are WordPress's own.
+# Top-level items carry an icon from the wp_admin icon pack.
+
+wp_admin.dashboard:
+  title: Dashboard
+  route_name: wp_admin.dashboard
+  menu_name: wp-admin
+  weight: 0
+  options: { icon: { pack_id: wp_admin, icon_id: dashboard } }
+wp_admin.dashboard.home:
+  title: Home
+  route_name: wp_admin.dashboard
+  parent: wp_admin.dashboard
+  menu_name: wp-admin
+  weight: 0
+wp_admin.dashboard.updates:
+  title: Updates
+  route_name: update.status
+  parent: wp_admin.dashboard
+  menu_name: wp-admin
+  weight: 1
+
+wp_admin.posts:
+  title: Posts
+  url: 'internal:/wp-admin/posts'
+  menu_name: wp-admin
+  weight: 10
+  options: { icon: { pack_id: wp_admin, icon_id: posts } }
+wp_admin.posts.all:
+  title: 'All Posts'
+  url: 'internal:/wp-admin/posts'
+  parent: wp_admin.posts
+  menu_name: wp-admin
+  weight: 0
+wp_admin.posts.add:
+  title: 'Add Post'
+  route_name: node.add
+  route_parameters: { node_type: article }
+  parent: wp_admin.posts
+  menu_name: wp-admin
+  weight: 1
+wp_admin.posts.categories:
+  title: Categories
+  route_name: wp_admin.posts_categories
+  parent: wp_admin.posts
+  menu_name: wp-admin
+  weight: 2
+wp_admin.posts.tags:
+  title: Tags
+  route_name: wp_admin.posts_tags
+  parent: wp_admin.posts
+  menu_name: wp-admin
+  weight: 3
+
+wp_admin.media:
+  title: Media
+  route_name: entity.media.collection
+  menu_name: wp-admin
+  weight: 20
+  options: { icon: { pack_id: wp_admin, icon_id: media } }
+wp_admin.media.library:
+  title: Library
+  route_name: entity.media.collection
+  parent: wp_admin.media
+  menu_name: wp-admin
+  weight: 0
+wp_admin.media.add:
+  title: 'Add Media File'
+  route_name: entity.media.add_page
+  parent: wp_admin.media
+  menu_name: wp-admin
+  weight: 1
+
+wp_admin.pages:
+  title: Pages
+  url: 'internal:/wp-admin/pages'
+  menu_name: wp-admin
+  weight: 30
+  options: { icon: { pack_id: wp_admin, icon_id: pages } }
+wp_admin.pages.all:
+  title: 'All Pages'
+  url: 'internal:/wp-admin/pages'
+  parent: wp_admin.pages
+  menu_name: wp-admin
+  weight: 0
+wp_admin.pages.add:
+  title: 'Add Page'
+  route_name: node.add
+  route_parameters: { node_type: page }
+  parent: wp_admin.pages
+  menu_name: wp-admin
+  weight: 1
+
+wp_admin.recipes:
+  title: Recipes
+  url: 'internal:/wp-admin/recipes'
+  menu_name: wp-admin
+  weight: 40
+  options: { icon: { pack_id: wp_admin, icon_id: recipes } }
+wp_admin.recipes.all:
+  title: 'All Recipes'
+  url: 'internal:/wp-admin/recipes'
+  parent: wp_admin.recipes
+  menu_name: wp-admin
+  weight: 0
+wp_admin.recipes.add:
+  title: 'Add Recipe'
+  route_name: node.add
+  route_parameters: { node_type: recipe }
+  parent: wp_admin.recipes
+  menu_name: wp-admin
+  weight: 1
+wp_admin.recipes.categories:
+  title: 'Recipe Categories'
+  route_name: wp_admin.recipes_categories
+  parent: wp_admin.recipes
+  menu_name: wp-admin
+  weight: 2
+
+wp_admin.comments:
+  title: Comments
+  route_name: comment.admin
+  menu_name: wp-admin
+  weight: 50
+  options: { icon: { pack_id: wp_admin, icon_id: comments } }
+
+wp_admin.appearance:
+  title: Appearance
+  route_name: system.themes_page
+  menu_name: wp-admin
+  weight: 60
+  options: { icon: { pack_id: wp_admin, icon_id: appearance } }
+wp_admin.appearance.themes:
+  title: Themes
+  route_name: system.themes_page
+  parent: wp_admin.appearance
+  menu_name: wp-admin
+  weight: 0
+wp_admin.appearance.editor:
+  title: Editor
+  route_name: wp_admin.page
+  route_parameters: { section: appearance, page: editor }
+  parent: wp_admin.appearance
+  menu_name: wp-admin
+  weight: 1
+wp_admin.appearance.fonts:
+  title: Fonts
+  route_name: wp_admin.page
+  route_parameters: { section: appearance, page: fonts }
+  parent: wp_admin.appearance
+  menu_name: wp-admin
+  weight: 2
+
+wp_admin.plugins:
+  title: Plugins
+  route_name: system.modules_list
+  menu_name: wp-admin
+  weight: 70
+  options: { icon: { pack_id: wp_admin, icon_id: plugins } }
+wp_admin.plugins.installed:
+  title: 'Installed Plugins'
+  route_name: system.modules_list
+  parent: wp_admin.plugins
+  menu_name: wp-admin
+  weight: 0
+wp_admin.plugins.add:
+  title: 'Add Plugin'
+  route_name: wp_admin.page
+  route_parameters: { section: plugins, page: add }
+  parent: wp_admin.plugins
+  menu_name: wp-admin
+  weight: 1
+
+wp_admin.users:
+  title: Users
+  route_name: entity.user.collection
+  menu_name: wp-admin
+  weight: 80
+  options: { icon: { pack_id: wp_admin, icon_id: users } }
+wp_admin.users.all:
+  title: 'All Users'
+  route_name: entity.user.collection
+  parent: wp_admin.users
+  menu_name: wp-admin
+  weight: 0
+wp_admin.users.add:
+  title: 'Add User'
+  route_name: user.admin_create
+  parent: wp_admin.users
+  menu_name: wp-admin
+  weight: 1
+wp_admin.users.profile:
+  title: Profile
+  route_name: wp_admin.profile
+  parent: wp_admin.users
+  menu_name: wp-admin
+  weight: 2
+
+wp_admin.tools:
+  title: Tools
+  route_name: wp_admin.tools
+  menu_name: wp-admin
+  weight: 90
+  options: { icon: { pack_id: wp_admin, icon_id: tools } }
+wp_admin.tools.available:
+  title: 'Available Tools'
+  route_name: wp_admin.tools
+  parent: wp_admin.tools
+  menu_name: wp-admin
+  weight: 0
+wp_admin.tools.import:
+  title: Import
+  route_name: wp_admin.page
+  route_parameters: { section: tools, page: import }
+  parent: wp_admin.tools
+  menu_name: wp-admin
+  weight: 1
+wp_admin.tools.export:
+  title: Export
+  route_name: wp_admin.page
+  route_parameters: { section: tools, page: export }
+  parent: wp_admin.tools
+  menu_name: wp-admin
+  weight: 2
+wp_admin.tools.site_health:
+  title: 'Site Health'
+  route_name: system.status
+  parent: wp_admin.tools
+  menu_name: wp-admin
+  weight: 3
+wp_admin.tools.export_personal_data:
+  title: 'Export Personal Data'
+  route_name: wp_admin.page
+  route_parameters: { section: tools, page: export-personal-data }
+  parent: wp_admin.tools
+  menu_name: wp-admin
+  weight: 4
+wp_admin.tools.erase_personal_data:
+  title: 'Erase Personal Data'
+  route_name: wp_admin.page
+  route_parameters: { section: tools, page: erase-personal-data }
+  parent: wp_admin.tools
+  menu_name: wp-admin
+  weight: 5
+wp_admin.tools.theme_editor:
+  title: 'Theme File Editor'
+  route_name: wp_admin.page
+  route_parameters: { section: tools, page: theme-editor }
+  parent: wp_admin.tools
+  menu_name: wp-admin
+  weight: 6
+wp_admin.tools.plugin_editor:
+  title: 'Plugin File Editor'
+  route_name: wp_admin.page
+  route_parameters: { section: tools, page: plugin-editor }
+  parent: wp_admin.tools
+  menu_name: wp-admin
+  weight: 7
+wp_admin.tools.drupal:
+  title: 'Drupal Administration'
+  route_name: wp_admin.page
+  route_parameters: { section: tools, page: drupal }
+  parent: wp_admin.tools
+  menu_name: wp-admin
+  weight: 8
+
+wp_admin.settings:
+  title: Settings
+  route_name: wp_admin.settings.general
+  menu_name: wp-admin
+  weight: 100
+  options: { icon: { pack_id: wp_admin, icon_id: settings } }
+wp_admin.settings.general:
+  title: General
+  route_name: wp_admin.settings.general
+  parent: wp_admin.settings
+  menu_name: wp-admin
+  weight: 0
+wp_admin.settings.connectors:
+  title: Connectors
+  route_name: wp_admin.page
+  route_parameters: { section: settings, page: connectors }
+  parent: wp_admin.settings
+  menu_name: wp-admin
+  weight: 1
+wp_admin.settings.writing:
+  title: Writing
+  route_name: wp_admin.settings.writing
+  parent: wp_admin.settings
+  menu_name: wp-admin
+  weight: 2
+wp_admin.settings.reading:
+  title: Reading
+  route_name: wp_admin.settings.reading
+  parent: wp_admin.settings
+  menu_name: wp-admin
+  weight: 3
+wp_admin.settings.discussion:
+  title: Discussion
+  route_name: wp_admin.settings.discussion
+  parent: wp_admin.settings
+  menu_name: wp-admin
+  weight: 4
+wp_admin.settings.media:
+  title: Media
+  route_name: wp_admin.settings.media
+  parent: wp_admin.settings
+  menu_name: wp-admin
+  weight: 5
+wp_admin.settings.permalinks:
+  title: Permalinks
+  route_name: wp_admin.page
+  route_parameters: { section: settings, page: permalinks }
+  parent: wp_admin.settings
+  menu_name: wp-admin
+  weight: 6
+wp_admin.settings.privacy:
+  title: Privacy
+  route_name: wp_admin.settings.privacy
+  parent: wp_admin.settings
+  menu_name: wp-admin
+  weight: 7

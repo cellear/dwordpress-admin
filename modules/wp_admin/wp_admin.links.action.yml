@@ -1,0 +1,15 @@
+wp_admin.posts.add:
+  title: 'Add Post'
+  route_name: node.add
+  route_parameters: { node_type: article }
+  appears_on: [view.wp_admin_content.posts]
+wp_admin.pages.add:
+  title: 'Add Page'
+  route_name: node.add
+  route_parameters: { node_type: page }
+  appears_on: [view.wp_admin_content.pages]
+wp_admin.recipes.add:
+  title: 'Add Recipe'
+  route_name: node.add
+  route_parameters: { node_type: recipe }
+  appears_on: [view.wp_admin_content.recipes]

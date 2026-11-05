@@ -16,9 +16,9 @@ if [ ! -d "$DB_DIR/data/mysql" ]; then
   mariadb-install-db $RUN_AS --datadir="$DB_DIR/data" --auth-root-authentication-method=normal >/dev/null
 fi
 
-nohup mariadbd $RUN_AS --datadir="$DB_DIR/data" --socket="$DB_SOCK" --port="$DB_PORT" \
+setsid mariadbd $RUN_AS --datadir="$DB_DIR/data" --socket="$DB_SOCK" --port="$DB_PORT" \
   --bind-address=127.0.0.1 --pid-file="$DB_DIR/mysqld.pid" \
-  --log-error="$DB_DIR/mariadb.log" --skip-name-resolve >/dev/null 2>&1 &
+  --log-error="$DB_DIR/mariadb.log" --skip-name-resolve >/dev/null 2>&1 < /dev/null &
 
 for i in $(seq 1 30); do
   if mariadb -u root -S "$DB_SOCK" -e 'select 1' >/dev/null 2>&1; then break; fi

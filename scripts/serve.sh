@@ -7,8 +7,8 @@ source "$(dirname "$0")/env.sh"
 "$(dirname "$0")/start-db.sh"
 pkill -f "php -S 127.0.0.1:$WP_PORT" 2>/dev/null || true
 pkill -f "php -S 127.0.0.1:$DRUPAL_PORT" 2>/dev/null || true
-(cd "$WP_DIR" && nohup php -S 127.0.0.1:$WP_PORT > "$ROOT/wordpress.log" 2>&1 &)
-(cd "$DRUPAL_DIR/web" && nohup php -S 127.0.0.1:$DRUPAL_PORT .ht.router.php > "$ROOT/drupal.log" 2>&1 &)
+setsid php -S 127.0.0.1:$WP_PORT -t "$WP_DIR" > "$ROOT/wordpress.log" 2>&1 < /dev/null &
+(cd "$DRUPAL_DIR/web" && setsid php -S 127.0.0.1:$DRUPAL_PORT .ht.router.php > "$ROOT/drupal.log" 2>&1 < /dev/null &)
 sleep 1
 echo "WordPress: http://127.0.0.1:$WP_PORT/wp-admin  (admin/admin)"
 echo "Drupal:    http://127.0.0.1:$DRUPAL_PORT/user/login  (admin/admin)"

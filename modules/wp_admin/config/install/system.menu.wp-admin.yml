@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+id: wp-admin
+label: 'WordPress admin'
+description: 'The WordPress wp-admin menu tree, as rendered in the Navigation sidebar by the WordPress-style admin module.'
+locked: true
