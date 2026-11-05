@@ -1,0 +1,11 @@
+# Local installs (reproduce with scripts/)
+/drupal/*
+!/drupal/composer.json
+!/drupal/composer.lock
+/wordpress/
+/scripts/bin/
+/.db/
+/node_modules/
+*.sqlite
+*.log
+.DS_Store
