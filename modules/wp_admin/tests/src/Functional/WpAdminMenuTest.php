@@ -1,0 +1,86 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Drupal\Tests\wp_admin\Functional;
+
+use Drupal\Core\Menu\MenuTreeParameters;
+use Drupal\Core\Recipe\Recipe;
+use Drupal\Core\Recipe\RecipeRunner;
+use Drupal\Tests\BrowserTestBase;
+
+/**
+ * Applies the wp_admin recipe on Umami and loads every wp-admin menu link.
+ *
+ * @group wp_admin
+ */
+class WpAdminMenuTest extends BrowserTestBase {
+
+  /**
+   * {@inheritdoc}
+   */
+  protected $profile = 'demo_umami';
+
+  /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'claro';
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function setUp(): void {
+    parent::setUp();
+    $recipe = Recipe::createFromDirectory($this->root . '/recipes/wp_admin');
+    RecipeRunner::processRecipe($recipe);
+    $this->rebuildAll();
+  }
+
+  /**
+   * Every link in the wp-admin menu loads with HTTP 200 for an administrator.
+   */
+  public function testEveryMenuLinkLoads(): void {
+    $this->drupalLogin($this->rootUser);
+
+    // The sidebar shows the wp-admin menu, not the stock Drupal menus.
+    $this->drupalGet('/wp-admin');
+    $this->assertSession()->statusCodeEquals(200);
+    $this->assertSession()->elementExists('css', '.admin-toolbar');
+    foreach (['Dashboard', 'Posts', 'Media', 'Pages', 'Recipes', 'Comments', 'Appearance', 'Plugins', 'Users', 'Tools', 'Settings'] as $label) {
+      $this->assertSession()->elementTextContains('css', '.admin-toolbar', $label);
+    }
+
+    $tree = \Drupal::menuTree()->load('wp-admin', (new MenuTreeParameters())->onlyEnabledLinks());
+    $tree = \Drupal::menuTree()->transform($tree, [['callable' => 'menu.default_tree_manipulators:checkAccess']]);
+    $visited = 0;
+    $walk = function (array $tree) use (&$walk, &$visited): void {
+      foreach ($tree as $element) {
+        $url = $element->link->getUrlObject();
+        $this->drupalGet($url);
+        $this->assertSession()->statusCodeEquals(200, 'Menu link "' . $element->link->getTitle() . '" (' . $url->toString() . ') loads.');
+        $this->assertSession()->elementExists('css', 'h1');
+        $visited++;
+        if ($element->subtree) {
+          $walk($element->subtree);
+        }
+      }
+    };
+    $walk($tree);
+    $this->assertGreaterThan(40, $visited, 'All top-level and child links were visited.');
+  }
+
+  /**
+   * The recipe's content-model changes landed on Umami's Article.
+   */
+  public function testRecipeChangesArticle(): void {
+    $this->drupalLogin($this->rootUser);
+    $this->drupalGet('/node/add/article');
+    $this->assertSession()->fieldExists('Title');
+    $this->assertSession()->pageTextContains('Categories');
+    $this->assertSession()->pageTextContains('Comments');
+    // Umami's own fields survive; the article_content_type recipe was not pulled in.
+    $this->assertNull(\Drupal::entityTypeManager()->getStorage('field_config')->load('node.article.body'));
+    $this->assertNotNull(\Drupal::entityTypeManager()->getStorage('field_config')->load('node.article.field_body'));
+  }
+
+}

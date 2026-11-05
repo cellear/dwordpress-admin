@@ -1,6 +1,13 @@
-# WordPress admin → Drupal mapping (proposal for discussion)
+# WordPress admin → Drupal mapping
 
 Source: WordPress 7.1.4 wp-admin, captured in [docs/wp-admin](wp-admin/00-overview.md).
+Result: every item of the Drupal sidebar after the recipe, captured in [docs/drupal-admin](drupal-admin/00-overview.md).
+Wireframes drawn before building: [docs/wireframes](wireframes/).
+
+Decisions taken after the first proposal: a real **Category** vocabulary on Article; **comments
+enabled** on Article; a **Recipes** top-level menu; **no Project Browser** (future enhancement);
+Drupal-only screens **tucked under Tools → Drupal Administration**; **exact WordPress labels**.
+Site building (the Site Editor, Gutenberg) is explained, not recreated.
 Target: Drupal 11.4 installed with the Umami demo profile. Umami ships with the new
 **Navigation** module (left sidebar), the Claro admin theme, Media + Media Library,
 Layout Builder, Content Moderation (editorial workflow: Draft → Published → Archived),
@@ -44,7 +51,7 @@ Every link in the wp-admin tree lands on one of these; nothing 404s.
 | Posts → All Posts | adapted | `/wp-admin/posts` — a new View of **Article** nodes cloned from the stock admin content view, with WordPress columns (Title, Author, Tags, Date, Status) and status tabs All · Published · Draft · Archived (= Trash). Bulk actions (publish, unpublish, delete). "Add Post" button. |
 | Posts → Add Post | direct | `/node/add/article` |
 | Edit Post | direct | `/node/{nid}/edit` (row link from the view) |
-| Posts → Categories | adapted | `/wp-admin/posts/categories` — WordPress categories are a hierarchical vocabulary on posts. Umami Articles have no such vocabulary; Recipes have **Recipe category**. Proposal: show the Recipe category vocabulary here (add form + term table like WordPress), with a note. See open question 1. |
+| Posts → Categories | adapted | `/wp-admin/posts/categories` — WordPress categories are a hierarchical vocabulary on posts. The recipe adds a **Categories** vocabulary (`category`) and a field on Article; this page shows its add form next to the term table, like WordPress. Recipe category keeps its own page under Recipes. |
 | Posts → Tags | adapted | `/wp-admin/posts/tags` — same page pattern over the **Tags** vocabulary (used by both Article and Recipe). Links to `/admin/structure/taxonomy/manage/tags/overview` for drag-and-drop ordering. |
 
 ## Media
@@ -67,7 +74,7 @@ Every link in the wp-admin tree lands on one of these; nothing 404s.
 
 | wp-admin | Kind | Drupal target |
 |---|---|---|
-| Comments | direct | `/admin/content/comment` — core Comment module's admin view, with Published / Unapproved tabs (WordPress: Approved / Pending). Requires the recipe to **enable the Comment module** and add a comment field to Article (WordPress's default: comments on posts, not pages). See open question 2. Spam and Trash tabs → explained inline (no core spam filter; Antispam/Honeypot contrib). |
+| Comments | direct | `/admin/content/comment` — core Comment module's admin view, with Published / Unapproved tabs (WordPress: Approved / Pending). The recipe **enables the Comment module** (core `comment_base` recipe) and adds the comment field to Article (WordPress's default: comments on posts, not pages). Spam and Trash tabs → explained inline (no core spam filter; Antispam/Honeypot contrib). |
 
 ## Appearance
 
@@ -77,14 +84,14 @@ Every link in the wp-admin tree lands on one of these; nothing 404s.
 | Appearance → Editor (Site Editor) | adapted | `/wp-admin/appearance/editor` — the Site Editor's five sections mapped to Drupal: **Navigation** → `/admin/structure/menu/manage/main`; **Styles** → `/admin/appearance/settings/umami` (theme settings); **Pages** → `/wp-admin/pages`; **Templates** → `/admin/structure/block` (block layout per region) and Layout Builder on each content type's display (`/admin/structure/types/manage/article/display`); **Patterns** → explained (no reusable block patterns in core; nearest is reusable content blocks at `/admin/content/block`). |
 | Appearance → Fonts | explained | `/wp-admin/appearance/fonts` — no font library in Drupal core; fonts come from the theme. Links to theme settings and the Olivero/Umami font notes. |
 | Customize | adapted | Not in the menu (WordPress hides it for block themes) but the recipe could add it: `/admin/appearance/settings` (logo, favicon, per-theme options) is the closest match. |
-| Widgets / Menus (classic WordPress) | direct | Not in the WordPress 7.1 menu with a block theme, but worth adding as submenu items because Drupal has exact equivalents: `/admin/structure/block` and `/admin/structure/menu`. See open question 3. |
+| Widgets / Menus (classic WordPress) | direct | Not in the WordPress 7.1 menu with a block theme, so not in the sidebar either; the Drupal equivalents (`/admin/structure/block`, `/admin/structure/menu`) are linked from Appearance → Editor and Tools → Drupal Administration. |
 
 ## Plugins
 
 | wp-admin | Kind | Drupal target |
 |---|---|---|
 | Plugins → Installed Plugins | direct | `/admin/modules` (Extend). Uninstall tab `/admin/modules/uninstall`. |
-| Plugins → Add Plugin | explained | `/wp-admin/plugins/add` — Drupal core has no in-browser module installer; the page explains Composer (`composer require drupal/…`) and links to drupal.org's module search. If the contrib **Project Browser** module is installed, the page links to `/admin/modules/browse` instead (Project Browser + Package Manager, which is in core, give the WordPress-style experience). See open question 4. |
+| Plugins → Add Plugin | explained | `/wp-admin/plugins/add` — Drupal core has no in-browser module installer; the page explains Composer (`composer require drupal/…`) and links to drupal.org's module search. Project Browser (contrib) is noted as a future enhancement; when it is installed the page also links to `/admin/modules/browse`. |
 | Plugin File Editor | explained | `/wp-admin/tools/plugin-editor` — Drupal never edits code in the browser; explains why and points at the file system paths. |
 
 ## Users
@@ -124,7 +131,7 @@ an explanation.
 | Settings → Connectors | explained | `/wp-admin/settings/connectors` — WordPress 7.1's shared API-key store for AI providers. Drupal equivalent is the contrib **AI** module's provider settings plus the **Key** module; the page explains and links. |
 | Settings → Writing | adapted | `/wp-admin/settings/writing` — Default Post Category → default value of the category field on Article; Default Post Format → explained; Post via email → explained (no core equivalent); Update Services → explained. Links to Text formats and editors (`/admin/config/content/formats`) as the real "writing" settings. |
 | Settings → Reading | adapted | `/wp-admin/settings/reading` — Your homepage displays → `system.site:page.front` (latest posts = `/node`, or a static page chosen from Basic pages); Blog pages show at most → items per page of the `frontpage` view; Syndication feeds show the most recent → the view's feed display; For each post show full text/excerpt → the view's row display mode (teaser/full); Search engine visibility → explained (robots.txt / contrib Metatag). |
-| Settings → Discussion | adapted | `/wp-admin/settings/discussion` — Default post settings (allow comments) → Article comment field default; "Users must be registered" → anonymous role's "post comments" permission; Comment moderation / must be manually approved → "skip comment approval" permission; Comments per page / threading → comment field settings; Avatars → user picture field (`/admin/config/people/accounts`). Requires Comment module (open question 2). |
+| Settings → Discussion | adapted | `/wp-admin/settings/discussion` — Default post settings (allow comments) → Article comment field default; "Users must be registered" → anonymous role's "post comments" permission; Comment moderation / must be manually approved → "skip comment approval" permission; Comments per page / threading → comment field settings; Avatars → user picture field (`/admin/config/people/accounts`). Comment module is enabled by the recipe. |
 | Settings → Media | adapted | `/wp-admin/settings/media` — Thumbnail / Medium / Large sizes → the `thumbnail`, `medium`, `large` image styles (`/admin/config/media/image-styles`, which exist in core with the same names); Uploading files / organise by month → `/admin/config/media/file-system`. |
 | Settings → Permalinks | adapted | `/wp-admin/settings/permalinks` — Common Settings / Custom Structure → explained; Drupal uses per-node URL aliases (`/admin/config/search/path`), and patterns come from contrib **Pathauto** (which Umami's aliases like `/recipes/…` emulate by hand). Category/Tag base → the vocabulary alias patterns. |
 | Settings → Privacy | adapted | `/wp-admin/settings/privacy` — "Select a Privacy Policy page" → a stored node reference (new config `wp_admin.settings:privacy_page`) with a Create button that opens `/node/add/page` pre-titled "Privacy Policy"; the Policy Guide tab → explained. |
@@ -141,22 +148,20 @@ an explanation.
 - Everything under `/wp-admin/…` uses the admin theme (Claro). Visual mimicry of the
   WordPress styling is out of scope unless requested.
 
-## Open questions for discussion
+## Implementation status
 
-1. **Categories.** Show Recipe category under Posts → Categories (no schema change), or
-   add a real `category` vocabulary to Article so Posts → Categories behaves like
-   WordPress (schema change, but truer)?
-2. **Comments.** Enable the Comment module and put a comment field on Article (makes
-   Comments and Settings → Discussion real), or leave comments off and make both pages
-   *explained*?
-3. **Recipes.** WordPress has no Recipe type; this mapping leaves Recipe content reachable
-   only through Drupal administration. Should the recipe add a **Recipes** top-level menu
-   (the way WordPress shows custom post types), with its own All / Add New / Categories?
-4. **Project Browser.** Add contrib Project Browser to the recipe's dependencies so
-   Plugins → Add Plugin is a real, in-browser installer, or keep core-only and leave it
-   *explained*?
-5. **Extras.** Keep the few additions that are not in WordPress but make Drupal's
-   strengths visible (Roles, Permissions, Widgets → Block layout, Menus, Drupal
-   administration under Tools), or stay strictly 1:1 with the WordPress tree?
-6. **Branding.** Keep the sidebar labels exactly as WordPress ("Plugins", "Posts"), or use
-   "Plugins (modules)" style hints?
+Implemented in `recipes/wp_admin` + `modules/wp_admin` (see README for how to apply).
+
+| Area | Status |
+|---|---|
+| Sidebar (Navigation block with the `wp-admin` menu, icons) | done |
+| Dashboard (Welcome, Site Health, At a Glance, Activity, Quick Draft, News) | done |
+| Posts / Pages / Recipes list views with moderation-state filter and Add buttons | done |
+| Categories / Tags / Recipe Categories pages (add form + table) | done |
+| Settings → General, Writing, Reading, Discussion, Media, Privacy forms | done |
+| Explained pages (Editor, Fonts, Add Plugin, Tools, Import, Export, personal data, file editors, Connectors, Permalinks, Drupal Administration) | done |
+| Functional test visiting every menu link | `modules/wp_admin/tests/src/Functional/WpAdminMenuTest.php` |
+
+Future enhancements (not in the recipe): Project Browser for an in-browser module installer,
+Pathauto for WordPress-style permalink patterns, WordPress Migrate for WXR import, Composer
+packaging of the recipe and module as `drupal-recipe` / `drupal-module` packages.
