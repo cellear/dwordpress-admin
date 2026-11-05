@@ -40,13 +40,14 @@ class DashboardController extends ControllerBase {
    * Builds the dashboard.
    */
   public function build(): array {
+    // WordPress stacks its widgets in two independent columns.
     $panels = [
-      $this->welcome(),
-      $this->siteHealth(),
-      $this->quickDraft(),
-      $this->atAGlance(),
-      $this->eventsAndNews(),
-      $this->activity(),
+      $this->welcome() + ['column' => 0],
+      $this->siteHealth() + ['column' => 1],
+      $this->atAGlance() + ['column' => 1],
+      $this->activity() + ['column' => 1],
+      $this->quickDraft() + ['column' => 2],
+      $this->eventsAndNews() + ['column' => 2],
     ];
     return [
       '#theme' => 'wp_admin_dashboard',

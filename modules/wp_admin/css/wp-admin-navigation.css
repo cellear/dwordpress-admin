@@ -39,7 +39,6 @@
   body,
   [data-admin-toolbar="expanded"] body,
   [data-admin-toolbar="collapsed"] body { --admin-toolbar-sidebar-width: var(--wp-sidebar-width, 160px); }
-  html :is(#extra-specificity-hack, [data-drupal-admin-styles]) .toolbar-button--collapsible .toolbar-button__chevron { display: block; }
   html :is(#extra-specificity-hack, [data-drupal-admin-styles]) .toolbar-button--collapsible .toolbar-button__label {
     position: relative;
     clip: revert;
@@ -51,6 +50,16 @@
   }
   html :is(#extra-specificity-hack, [data-drupal-admin-styles]) .admin-toolbar__expand-button { display: none; }
 }
+/* Row geometry and chevrons: the toolbar-button component stylesheet loads after this
+   file, so these carry one extra level of specificity. */
+html .admin-toolbar:is(#extra-specificity-hack, [data-drupal-admin-styles]) .toolbar-button {
+  min-height: 34px;
+  padding-block: 5px;
+  font-size: 13px;
+  border-radius: 0;
+}
+html :is(#extra-specificity-hack, [data-drupal-admin-styles]) .toolbar-button__chevron,
+html[data-admin-toolbar] :is(#extra-specificity-hack, [data-drupal-admin-styles]) .toolbar-button--collapsible .toolbar-button__chevron { display: none; }
 
 :is(#extra-specificity-hack, [data-drupal-admin-styles]) {
   /* Surfaces. */
@@ -71,10 +80,47 @@
   .toolbar-block::after { border-color: transparent !important; }
   .toolbar-block__title { color: #a7aaad; }
 
-  /* Buttons: no light outline on dark, WordPress hover colors. */
+  /* Buttons: WordPress rows (34px, 13px text), no chevrons, no rounded corners. */
   .toolbar-button {
     font-size: 13px;
     border-radius: 0;
+  }
+  .toolbar-block__list { gap: 0; }
+  .toolbar-block__list-item { margin: 0; }
+  /* WordPress menu separators: after Dashboard and after Comments. */
+  .toolbar-block__list-item:has(> .toolbar-button--icon--posts),
+  .toolbar-block__list-item:has(> .toolbar-button--icon--appearance) { margin-block-start: 11px; }
+
+  /* The current item's children shown inline, like Home / Updates under Dashboard. */
+  .wp-admin-menu__item--current > .toolbar-popover__wrapper {
+    position: static;
+    z-index: auto;
+    display: block;
+    inline-size: auto;
+    block-size: auto;
+    padding: 6px 0;
+    transform: none;
+    opacity: 1;
+    box-shadow: none;
+    clip-path: none;
+    background-color: var(--wp-sidebar-bg-hover);
+  }
+  .wp-admin-menu__item--current > .toolbar-popover__wrapper .toolbar-popover__header { display: none; }
+  .wp-admin-menu__item--current > .toolbar-popover__wrapper .toolbar-menu { gap: 0; }
+  .wp-admin-menu__item--current > .toolbar-popover__wrapper a.toolbar-button {
+    min-height: 0;
+    padding: 6px 12px 6px 12px;
+    font-size: 13px;
+    line-height: 1.4;
+    color: #c3c4c7;
+    background: transparent;
+  }
+  .wp-admin-menu__item--current > .toolbar-popover__wrapper a.toolbar-button:hover,
+  .wp-admin-menu__item--current > .toolbar-popover__wrapper a.toolbar-button:focus { color: var(--wp-sidebar-text-hover); outline: 0; }
+  .wp-admin-menu__item--current > .toolbar-popover__wrapper a.toolbar-button.current { color: #fff; font-weight: 600; }
+  .wp-admin-menu__item--current > .toolbar-button[aria-expanded="true"] {
+    color: #fff;
+    background-color: var(--wp-sidebar-current);
   }
   .toolbar-button:hover { outline-color: transparent; }
   .toolbar-button:focus { outline-color: var(--wp-sidebar-text-hover); }

@@ -14,3 +14,10 @@ sidebar:
   header: true
   js:
     js/wp-admin-sidebar.js: {}
+# Marks the current item (language-prefix safe) and shows its children inline.
+menu:
+  version: 1.x
+  js:
+    js/wp-admin-menu.js: {}
+  dependencies:
+    - core/drupalSettings

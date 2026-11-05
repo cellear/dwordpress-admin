@@ -79,5 +79,6 @@ function wp_admin_page_attachments(array &$attachments): void {
   $attachments['#cache']['contexts'][] = 'user.permissions';
   if (\Drupal::currentUser()->hasPermission('access navigation')) {
     $attachments['#attached']['library'][] = 'wp_admin/sidebar';
+    $attachments['#attached']['library'][] = 'wp_admin/menu';
   }
 }
