@@ -8,3 +8,9 @@ top_bar:
   css:
     theme:
       css/wp-admin-top-bar.css: {}
+# Runs in <head>: pins the Navigation sidebar open on desktop before first paint.
+sidebar:
+  version: 1.x
+  header: true
+  js:
+    js/wp-admin-sidebar.js: {}

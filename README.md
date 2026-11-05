@@ -14,8 +14,11 @@ of a Drupal site installed with the Umami demo profile.
   Categories/Tags pages, six Settings forms that write real Drupal config, and YAML
   page texts (`pages/`) that explain each WordPress feature Drupal lacks and link to the
   nearest Drupal screen. Every item in the WordPress menu lands on a page. It also
-  restyles the Navigation sidebar in the WordPress color scheme and adds the black
-  WordPress-style admin bar (site name, Comments, + New, Howdy) to every page.
+  restyles the Navigation sidebar in the WordPress color scheme, keeps it expanded on
+  desktop (no icon-only state; a small head script pins it open and CSS removes the
+  collapse control), and adds the black WordPress-style admin bar (site name, Comments,
+  + New, Howdy) to every page. The `default_admin` theme's Alt+T collapse shortcut is not
+  neutralised because Umami uses Claro as its admin theme.
 - `docs/mapping.md` — how each wp-admin page maps to Drupal, and what was decided.
 - `docs/wp-admin/` — the WordPress 7.1 admin, every menu item and page, with screenshots.
 - `docs/drupal-admin/` — the result: every sidebar item on Drupal, with screenshots.

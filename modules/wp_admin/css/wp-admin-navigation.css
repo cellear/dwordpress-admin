@@ -26,13 +26,30 @@
   --admin-toolbar-color-expanded: var(--wp-sidebar-bg-hover);
 }
 
-/* WordPress's sidebar is 160px wide; keep Drupal's collapsed (icon-only) width. */
+/*
+ * WordPress's sidebar is 160px wide and never collapses to icons on desktop.
+ * js/wp-admin-sidebar.js keeps data-admin-toolbar="expanded"; these rules are
+ * the no-JS / first-paint fallback: full width and visible labels regardless
+ * of the attribute, and no collapse button.
+ */
 @media (min-width: 560px) {
   body { --admin-toolbar-sidebar-width: var(--wp-sidebar-width, 160px); }
 }
 @media (min-width: 1024px) {
-  body { --admin-toolbar-sidebar-width: 4.5rem; }
-  [data-admin-toolbar="expanded"] body { --admin-toolbar-sidebar-width: var(--wp-sidebar-width, 160px); }
+  body,
+  [data-admin-toolbar="expanded"] body,
+  [data-admin-toolbar="collapsed"] body { --admin-toolbar-sidebar-width: var(--wp-sidebar-width, 160px); }
+  html :is(#extra-specificity-hack, [data-drupal-admin-styles]) .toolbar-button--collapsible .toolbar-button__chevron { display: block; }
+  html :is(#extra-specificity-hack, [data-drupal-admin-styles]) .toolbar-button--collapsible .toolbar-button__label {
+    position: relative;
+    clip: revert;
+    width: auto;
+    height: auto;
+    white-space: wrap;
+    clip-path: none;
+    opacity: 1;
+  }
+  html :is(#extra-specificity-hack, [data-drupal-admin-styles]) .admin-toolbar__expand-button { display: none; }
 }
 
 :is(#extra-specificity-hack, [data-drupal-admin-styles]) {

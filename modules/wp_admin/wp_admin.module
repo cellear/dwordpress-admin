@@ -67,3 +67,17 @@ function wp_admin_page_top(array &$page_top): void {
     '#cache' => ['contexts' => ['user.permissions']],
   ];
 }
+
+/**
+ * Implements hook_page_attachments().
+ *
+ * Keeps the sidebar expanded on desktop (WordPress never shows icons only).
+ * Attached here, not on the top bar placeholder, so the header library really
+ * lands in <head> before core's inline sidebar script.
+ */
+function wp_admin_page_attachments(array &$attachments): void {
+  $attachments['#cache']['contexts'][] = 'user.permissions';
+  if (\Drupal::currentUser()->hasPermission('access navigation')) {
+    $attachments['#attached']['library'][] = 'wp_admin/sidebar';
+  }
+}
