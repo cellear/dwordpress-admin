@@ -1,3 +1,15 @@
 title: 'Export'
-intro: 'Placeholder: text to be written.'
-sections: []
+intro: 'When you click the button below WordPress creates an XML file (WXR) for you to save to your computer, containing posts, pages, comments, custom fields, categories and tags. Drupal separates content from configuration and exports each differently.'
+sections:
+  - heading: 'Configuration export (site structure and settings)'
+    text: 'Everything that is not content: content types, fields, views, menus, roles, settings. Exported as YAML, one file per configuration item.'
+    links:
+      - { title: 'Export full configuration archive (.tar.gz)', url: '/admin/config/development/configuration/full/export' }
+      - { title: 'Export a single configuration item', url: '/admin/config/development/configuration/single/export' }
+  - heading: 'Content export'
+    text: "Drupal core can export content as YAML for recipes with the command line:\n\n    vendor/bin/dr content:export node 12 > content/node/12.yml\n\nFor bulk, portable exports use a contrib module."
+    links:
+      - { title: 'Default Content', url: 'https://www.drupal.org/project/default_content', description: 'exports entities to YAML, re-importable on install' }
+      - { title: 'Content Synchronization', url: 'https://www.drupal.org/project/content_sync', description: 'export and import content between environments' }
+      - { title: 'Views Data Export', url: 'https://www.drupal.org/project/views_data_export', description: 'CSV/XML export of any View' }
+      - { title: 'RSS feed of this site', url: '/rss.xml', description: 'the simplest machine-readable export' }

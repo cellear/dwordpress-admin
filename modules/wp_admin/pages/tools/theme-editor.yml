@@ -1,3 +1,11 @@
 title: 'Edit Themes'
-intro: 'Placeholder: text to be written.'
-sections: []
+intro: 'WordPress’s Theme File Editor edits the PHP, CSS and JavaScript files of the active theme in the browser. Drupal deliberately has no code editor in the admin interface.'
+wordpress: 'A file tree of the theme on the right, a text area on the left, and an “Update File” button that writes straight to the web server. WordPress itself warns that this is dangerous and recommends a child theme.'
+drupal: 'Code is edited on disk, kept in version control and deployed. Nothing in the admin UI writes PHP or Twig files. Drupal also caches Twig templates and CSS/JS aggregates, so a changed file needs a cache rebuild to show.'
+sections:
+  - heading: 'Where theme files are'
+    text: "Core themes: web/core/themes/<name>; contrib and custom themes: web/themes/<name>. Templates are *.html.twig files; styles are declared in <name>.libraries.yml. Create your own theme with:\n\n    php core/scripts/drupal generate-theme my_theme"
+    links:
+      - { title: 'Appearance', url: 'route:system.themes_page' }
+      - { title: 'Performance: clear all caches', url: 'route:system.performance_settings' }
+      - { title: 'Theming guide', url: 'https://www.drupal.org/docs/develop/theming-drupal' }

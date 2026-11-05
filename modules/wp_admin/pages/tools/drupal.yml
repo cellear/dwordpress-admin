@@ -1,3 +1,32 @@
 title: 'Drupal Administration'
-intro: 'Placeholder: text to be written.'
-sections: []
+intro: 'Everything Drupal has that WordPress does not, tucked away in one place. The stock Drupal administration menu is still available at /admin.'
+sections:
+  - heading: 'Content model'
+    links:
+      - { title: 'Content types', url: 'route:entity.node_type.collection', description: 'Article, Basic page, Recipe: each with its own fields, form and display' }
+      - { title: 'Taxonomy', url: 'route:entity.taxonomy_vocabulary.collection', description: 'all vocabularies: Categories, Tags, Recipe category' }
+      - { title: 'Media types', url: 'route:entity.media_type.collection' }
+      - { title: 'Block types and content blocks', url: 'route:entity.block_content_type.collection' }
+      - { title: 'Display modes', url: 'route:entity.entity_view_mode.collection', description: 'teaser, card, full…' }
+  - heading: 'Site building'
+    links:
+      - { title: 'Views', url: 'route:entity.view.collection', description: 'the query builder behind every list on the site, including Posts/Pages/Recipes here' }
+      - { title: 'Block layout', url: 'route:block.admin_display', description: 'what goes in which region of the page' }
+      - { title: 'Menus', url: 'route:entity.menu.collection' }
+      - { title: 'Workflows', url: 'route:entity.workflow.collection', description: 'Draft → Published → Archived editorial workflow' }
+  - heading: 'People'
+    links:
+      - { title: 'Roles', url: 'route:entity.user_role.collection' }
+      - { title: 'Permissions', url: 'route:user.admin_permissions', description: 'fine-grained: WordPress has fixed capabilities per role' }
+      - { title: 'Account settings', url: 'route:entity.user.admin_form' }
+  - heading: 'Multilingual'
+    links:
+      - { title: 'Languages', url: 'route:entity.configurable_language.collection' }
+      - { title: 'Content language and translation', url: 'route:language.content_settings_page' }
+      - { title: 'User interface translation', url: 'route:locale.translate_page' }
+  - heading: 'System'
+    links:
+      - { title: 'Configuration', url: 'route:system.admin_config' }
+      - { title: 'Reports', url: 'route:system.admin_reports' }
+      - { title: 'Configuration synchronization', url: 'route:config.sync', description: 'deploy settings between environments as YAML' }
+      - { title: 'Full Drupal administration menu', url: 'route:system.admin' }

@@ -1,3 +1,15 @@
 title: 'Erase Personal Data'
-intro: 'Placeholder: text to be written.'
-sections: []
+intro: 'WordPress erases or anonymizes the personal data for an email address after the person confirms a request. In Drupal the equivalent is cancelling the user account, which offers to delete or anonymize the account’s content.'
+drupal: 'Open the account on the People page, choose Cancel account, then pick one of: disable the account and keep its content; disable and unpublish its content; delete the account and make its content belong to “Anonymous”; delete the account and its content.'
+sections:
+  - heading: 'Cancel an account'
+    links:
+      - { title: 'People: find the user, then Edit → Cancel account', url: 'route:entity.user.collection' }
+      - { title: 'Account settings: what happens by default when an account is cancelled', url: 'route:entity.user.admin_form' }
+  - heading: 'Comments by anonymous visitors'
+    text: 'Comments posted without an account keep the name and email entered; delete them under Comments, or edit them to remove the details.'
+    links:
+      - { title: 'Comments', url: 'route:comment.admin' }
+  - heading: 'Contrib'
+    links:
+      - { title: 'GDPR module', url: 'https://www.drupal.org/project/gdpr', description: 'request workflow, anonymization rules per field' }

@@ -1,3 +1,13 @@
 title: 'Fonts'
-intro: 'Placeholder: text to be written.'
-sections: []
+intro: 'WordPress 6.5 added a Font Library (Appearance → Fonts) to upload font files or install Google Fonts and make them available to the Site Editor’s typography settings.'
+wordpress: 'The Font Library lists the fonts the active theme provides, lets you upload .woff2/.ttf files, and installs fonts from Google Fonts. Chosen fonts become options in Styles → Typography.'
+drupal: 'Drupal core has no font library. Fonts are part of the theme: Umami ships Scope One and Open Sans in its CSS; Olivero uses Lora and Metropolis. Changing fonts means editing the theme (or a sub-theme) or installing a contrib module.'
+sections:
+  - heading: 'Where fonts are defined on this site'
+    links:
+      - { title: 'Umami theme settings', url: '/admin/appearance/settings/umami', description: 'logo and favicon; fonts are in the theme CSS' }
+      - { title: 'Appearance (themes)', url: 'route:system.themes_page' }
+  - heading: 'Nearest contrib options'
+    links:
+      - { title: '@font-your-face', url: 'https://www.drupal.org/project/fontyourface', description: 'browse and enable web fonts from the admin UI, including Google Fonts' }
+      - { title: 'Starterkit theme generator', url: 'https://www.drupal.org/docs/core-modules-and-themes/core-themes/starterkit-theme', description: 'create your own theme and set its fonts in CSS' }

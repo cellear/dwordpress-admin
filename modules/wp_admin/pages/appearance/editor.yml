@@ -1,3 +1,32 @@
 title: 'Editor'
-intro: 'Placeholder: text to be written.'
-sections: []
+intro: 'In WordPress the Site Editor (Appearance → Editor) is one full-screen app for editing navigation, styles, pages, templates and patterns of a block theme. Drupal spreads the same jobs over several administration screens, listed here.'
+wordpress: "The Site Editor opens on a preview of the site with a sidebar: Navigation (the menus), Styles (colors, typography, layout), Pages (edit page content in place), Templates (the layouts used for single posts, archives, 404…), and Patterns (reusable block arrangements and template parts such as header and footer)."
+drupal: "Drupal does not edit the site visually in one place. Themes define the markup and CSS; what goes into each region of a page is configured in Block layout; menus are entities of their own; the body of a page can use Layout Builder; reusable blocks are content blocks."
+sections:
+  - heading: 'Navigation'
+    text: 'WordPress edits the Navigation block’s menus here. Drupal menus are edited under Structure → Menus; the main menu of this site is “Main navigation”.'
+    links:
+      - { title: 'Main navigation menu', url: '/admin/structure/menu/manage/main' }
+      - { title: 'All menus', url: 'route:entity.menu.collection' }
+  - heading: 'Styles'
+    text: 'Global styles (colors, fonts, spacing) belong to the theme. Drupal themes expose a settings form for logo, favicon and theme-specific options; everything else is CSS in the theme.'
+    links:
+      - { title: 'Umami theme settings', url: '/admin/appearance/settings/umami' }
+      - { title: 'Global theme settings', url: 'route:system.theme_settings' }
+  - heading: 'Pages'
+    text: 'Editing a page in place is replaced by the page’s edit form. Content types that enable Layout Builder can override the layout per page from the “Layout” tab of the node.'
+    links:
+      - { title: 'All Pages', url: '/wp-admin/pages' }
+      - { title: 'Basic page display settings (Layout Builder)', url: '/admin/structure/types/manage/page/display' }
+  - heading: 'Templates'
+    text: 'WordPress templates (Single Posts, Page, Index, 404) correspond to Drupal’s page regions configured in Block layout, plus the per-content-type display settings that decide which fields show in which order.'
+    links:
+      - { title: 'Block layout', url: 'route:block.admin_display' }
+      - { title: 'Article display settings', url: '/admin/structure/types/manage/article/display' }
+      - { title: 'Recipe display settings', url: '/admin/structure/types/manage/recipe/display' }
+  - heading: 'Patterns and template parts'
+    text: 'Reusable arrangements that appear on many pages are content blocks in Drupal (Structure → Block layout → Content blocks). There is no pattern directory in core.'
+    links:
+      - { title: 'Content blocks', url: '/admin/content/block' }
+      - { title: 'Block types', url: '/admin/structure/block-content' }
+note: 'Customize (the classic WordPress Customizer, hidden for block themes) maps to the theme settings linked above.'

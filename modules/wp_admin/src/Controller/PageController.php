@@ -78,6 +78,8 @@ class PageController extends ControllerBase {
   protected function toUrl(string $target): ?Url {
     try {
       if (str_starts_with($target, 'route:')) {
+        // Validate now so a bad route name degrades to plain text, not a 500.
+        \Drupal::service('router.route_provider')->getRouteByName(substr($target, 6));
         return Url::fromRoute(substr($target, 6));
       }
       if (preg_match('#^https?://#', $target)) {

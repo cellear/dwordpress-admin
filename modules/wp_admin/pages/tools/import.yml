@@ -1,3 +1,16 @@
 title: 'Import'
-intro: 'Placeholder: text to be written.'
-sections: []
+intro: 'If you have posts or comments in another system, WordPress can import those into this site. WordPress lists importers for Blogger, LiveJournal, Movable Type, RSS, Tumblr and WordPress (WXR files), each installed as a plugin on demand.'
+drupal: 'Drupal imports with the Migrate framework: a migration describes a source (a database, CSV, JSON, XML or a WordPress WXR file), the field mapping, and the destination entities. Core ships the sources for older Drupal sites; other sources come from contrib modules.'
+sections:
+  - heading: 'Importers available in Drupal'
+    links:
+      - { title: 'Upgrade from Drupal 6 or 7', url: '/upgrade', module: migrate_drupal_ui, description: 'core: migrate an older Drupal site into this one' }
+      - { title: 'WordPress Migrate', url: 'https://www.drupal.org/project/wordpress_migrate', description: 'contrib: imports a WordPress WXR export (posts, pages, tags, categories, comments, attachments)' }
+      - { title: 'Migrate Plus / Migrate Tools', url: 'https://www.drupal.org/project/migrate_plus', description: 'contrib: CSV, JSON and XML sources, and drush commands to run migrations' }
+      - { title: 'Feeds', url: 'https://www.drupal.org/project/feeds', description: 'contrib: RSS/CSV imports configured in the UI, repeatable on cron' }
+  - heading: 'Configuration import'
+    text: 'Separately from content, Drupal’s configuration (content types, views, settings) can be imported from YAML. This is how sites are deployed between environments.'
+    links:
+      - { title: 'Import a single configuration item', url: '/admin/config/development/configuration/single/import' }
+      - { title: 'Configuration synchronization', url: 'route:config.sync' }
+note: 'This repository’s content/wordpress-umami.xml is a WXR export of the Umami demo content, suitable as a test fixture for WordPress Migrate.'

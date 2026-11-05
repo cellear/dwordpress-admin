@@ -1,3 +1,15 @@
 title: 'Add Plugins'
-intro: 'Placeholder: text to be written.'
-sections: []
+intro: 'WordPress’s Add Plugin screen searches the wordpress.org directory and installs a plugin with one click. Drupal modules are the equivalent of plugins; they are listed on the Extend page once their code is on the server.'
+wordpress: 'Featured, Popular, Recommended and Favorites tabs; a search box; “Install Now” and then “Activate” buttons; and an “Upload Plugin” button for a .zip file.'
+drupal: "Drupal core does not download code from the admin interface. Modules are added with Composer on the command line, which also resolves dependencies and keeps versions pinned:\n\n    composer require drupal/pathauto\n\nThen the module is enabled on the Extend page (Plugins → Installed Plugins). Drupal.org is the directory to search."
+sections:
+  - heading: 'Find a module'
+    links:
+      - { title: 'Search modules on drupal.org', url: 'https://www.drupal.org/project/project_module', description: 'the directory: filter by Drupal version, maintenance status and category' }
+      - { title: 'Enable installed modules (Extend)', url: 'route:system.modules_list' }
+      - { title: 'Uninstall modules', url: 'route:system.modules_uninstall' }
+  - heading: 'Future enhancement: an in-browser installer'
+    text: 'The contrib Project Browser module, together with core’s Package Manager, reproduces the WordPress experience: browse drupal.org inside the admin UI and install with one click. It is not part of this recipe yet.'
+    links:
+      - { title: 'Project Browser', url: 'https://www.drupal.org/project/project_browser' }
+      - { title: 'Browse modules (Project Browser, when installed)', url: '/admin/modules/browse', module: project_browser }

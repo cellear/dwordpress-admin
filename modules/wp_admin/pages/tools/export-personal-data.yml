@@ -1,3 +1,13 @@
 title: 'Export Personal Data'
-intro: 'Placeholder: text to be written.'
-sections: []
+intro: 'WordPress lets an administrator generate a .zip of all personal data stored for an email address (profile, comments, media) and send the download link to that person, as required by privacy regulations such as the GDPR.'
+drupal: 'Drupal core has no personal-data export. The data an account holds can be read on its profile and in its content and comments, but packaging it is left to contrib modules.'
+sections:
+  - heading: 'Where a user’s data lives in Drupal'
+    links:
+      - { title: 'People', url: 'route:entity.user.collection', description: 'account name, email, roles, last access, IP of registration' }
+      - { title: 'Comments', url: 'route:comment.admin', description: 'comment author name, email, hostname' }
+      - { title: 'Recent log messages', url: 'route:dblog.overview', description: 'request logs with IP addresses' }
+  - heading: 'Contrib modules'
+    links:
+      - { title: 'GDPR', url: 'https://www.drupal.org/project/gdpr', description: 'data map, right-to-access exports, right-to-be-forgotten tasks' }
+      - { title: 'JSON:API', url: 'route:system.modules_list', description: 'core module: every entity is readable as JSON once enabled' }

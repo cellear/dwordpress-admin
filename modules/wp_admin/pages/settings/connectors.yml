@@ -1,3 +1,10 @@
 title: 'Connectors'
-intro: 'Placeholder: text to be written.'
-sections: []
+intro: 'New in WordPress 7.1: Connectors is a shared store of API keys and credentials (Akismet, Anthropic, Google, OpenAI…) that plugins such as the AI plugin use, so a key is configured once and used everywhere.'
+drupal: 'Drupal core has no shared credential store or AI integration. The contrib AI module provides the provider framework (Anthropic, OpenAI, Google and others as sub-modules), and the Key module stores secrets outside the database when needed.'
+sections:
+  - heading: 'Drupal equivalents (contrib)'
+    links:
+      - { title: 'AI module', url: 'https://www.drupal.org/project/ai', description: 'providers, chat, image generation, CKEditor assistants' }
+      - { title: 'Key module', url: 'https://www.drupal.org/project/key', description: 'manage API keys and secrets (file, environment variable, vault)' }
+      - { title: 'AI provider settings (when the AI module is installed)', url: '/admin/config/ai/providers', module: ai }
+      - { title: 'Antispam / Honeypot', url: 'https://www.drupal.org/project/honeypot', description: 'for the Akismet use case' }

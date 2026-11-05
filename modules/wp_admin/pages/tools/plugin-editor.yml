@@ -1,3 +1,10 @@
 title: 'Edit Plugins'
-intro: 'Placeholder: text to be written.'
-sections: []
+intro: 'WordPress’s Plugin File Editor edits plugin PHP files in the browser. Drupal has no equivalent on purpose: module code lives on disk and is never written by the admin interface.'
+drupal: 'Modules are directories under web/modules (contrib or custom), each with a *.info.yml file. They are added with Composer and enabled on the Extend page; their settings are configuration, editable in the UI and exportable as YAML.'
+sections:
+  - heading: 'Related Drupal screens'
+    links:
+      - { title: 'Extend (enable / disable modules)', url: 'route:system.modules_list' }
+      - { title: 'Uninstall modules', url: 'route:system.modules_uninstall' }
+      - { title: 'Configuration', url: 'route:system.admin_config' }
+      - { title: 'Module developer guide', url: 'https://www.drupal.org/docs/develop/creating-modules' }

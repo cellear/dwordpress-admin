@@ -1,3 +1,14 @@
 title: 'Permalink Settings'
-intro: 'Placeholder: text to be written.'
-sections: []
+intro: 'WordPress offers permalink structures such as /%year%/%monthnum%/%postname%/ and lets you set a category and tag base. Drupal gives every piece of content a system path (/node/12) and an optional URL alias, with no built-in pattern.'
+wordpress: 'Common Settings: Plain, Day and name, Month and name, Numeric, Post name, Custom Structure. Optional: Category base and Tag base.'
+drupal: 'URL aliases are per entity: each node, term and user may have one alias (set on its edit form under “URL alias”). The aliases on this site (/recipes/deep-mediterranean-quiche, /articles/…) were typed in by hand. Patterns like WordPress’s come from the contrib Pathauto module, which generates aliases from tokens such as [node:created:custom:Y]/[node:title].'
+sections:
+  - heading: 'Manage aliases'
+    links:
+      - { title: 'URL aliases', url: '/admin/config/search/path', description: 'list, add, edit and delete aliases' }
+      - { title: 'Pathauto patterns (when installed)', url: '/admin/config/search/path/patterns', module: pathauto }
+  - heading: 'Get WordPress-style patterns'
+    links:
+      - { title: 'Pathauto', url: 'https://www.drupal.org/project/pathauto', description: 'automatic aliases per content type and vocabulary, bulk generation' }
+      - { title: 'Redirect', url: 'https://www.drupal.org/project/redirect', description: 'keeps old URLs working when aliases change' }
+note: 'Trailing slashes and the “Plain” (?p=123) style do not apply; Drupal paths are always clean.'
