@@ -6,6 +6,7 @@
  */
 
 use Drupal\Core\Session\AccountInterface;
+use Drupal\Core\Url;
 
 /**
  * Implements hook_theme().
@@ -66,6 +67,23 @@ function wp_admin_page_top(array &$page_top): void {
     '#create_placeholder' => TRUE,
     '#cache' => ['contexts' => ['user.permissions']],
   ];
+}
+
+/**
+ * Implements hook_user_login().
+ *
+ * WordPress lands on the dashboard after login; so do users of the
+ * WordPress-style admin, unless the request already names a destination.
+ */
+function wp_admin_user_login(AccountInterface $account): void {
+  $request = \Drupal::request();
+  if (!$request->query->has('destination') && $account->hasPermission('access navigation')) {
+    // The redirect subscriber reads the request query; the destination service
+    // keeps its own copy, so set both.
+    $url = Url::fromRoute('wp_admin.dashboard')->toString();
+    $request->query->set('destination', $url);
+    \Drupal::destination()->set($url);
+  }
 }
 
 /**

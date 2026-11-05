@@ -29,6 +29,11 @@ class WpAdminMenuTest extends BrowserTestBase {
   protected $defaultTheme = 'claro';
 
   /**
+   * Log in through the form: the one-time link carries its own destination.
+   */
+  protected bool $useOneTimeLoginLinks = FALSE;
+
+  /**
    * {@inheritdoc}
    */
   protected function setUp(): void {
@@ -87,6 +92,17 @@ class WpAdminMenuTest extends BrowserTestBase {
     };
     $walk($tree);
     $this->assertGreaterThan(40, $visited, 'All top-level and child links were visited.');
+  }
+
+  /**
+   * Logging in lands on the dashboard, like WordPress.
+   */
+  public function testLoginLandsOnDashboard(): void {
+    // An ordinary user with the sidebar permission, not the superuser.
+    $editor = $this->drupalCreateUser(['access navigation', 'access administration pages']);
+    $this->drupalLogin($editor);
+    $this->assertSession()->addressMatches('#/wp-admin(\?.*)?$#');
+    $this->assertSession()->pageTextContains('Welcome to Dwordpress-admin!');
   }
 
   /**
