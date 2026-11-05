@@ -7,6 +7,7 @@ namespace Drupal\wp_admin\Controller;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Database\Connection;
 use Drupal\Core\Link;
+use Drupal\text\TextSummary;
 use Drupal\Core\Url;
 use Drupal\path_alias\AliasManagerInterface;
 use Drupal\taxonomy\VocabularyInterface;
@@ -21,6 +22,7 @@ class TermsController extends ControllerBase {
   public function __construct(
     protected Connection $database,
     protected AliasManagerInterface $aliasManager,
+    protected TextSummary $textSummary,
   ) {}
 
   /**
@@ -30,6 +32,7 @@ class TermsController extends ControllerBase {
     return new static(
       $container->get('database'),
       $container->get('path_alias.manager'),
+      $container->get(TextSummary::class),
     );
   }
 
@@ -108,7 +111,7 @@ class TermsController extends ControllerBase {
             ],
           ],
         ],
-        'description' => ['data' => ['#markup' => text_summary((string) $term->getDescription(), NULL, 120)]],
+        'description' => ['data' => ['#markup' => $this->textSummary->generate((string) $term->getDescription(), NULL, 120)]],
         'slug' => $alias !== $path ? ltrim($alias, '/') : $this->t('(none)'),
         'count' => $counts[$term->id()] ?? 0,
         'operations' => [

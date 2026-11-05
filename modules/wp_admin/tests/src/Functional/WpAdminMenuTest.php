@@ -8,12 +8,14 @@ use Drupal\Core\Menu\MenuTreeParameters;
 use Drupal\Core\Recipe\Recipe;
 use Drupal\Core\Recipe\RecipeRunner;
 use Drupal\Tests\BrowserTestBase;
+use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 /**
  * Applies the wp_admin recipe on Umami and loads every wp-admin menu link.
- *
- * @group wp_admin
  */
+#[Group('wp_admin')]
+#[RunTestsInSeparateProcesses]
 class WpAdminMenuTest extends BrowserTestBase {
 
   /**

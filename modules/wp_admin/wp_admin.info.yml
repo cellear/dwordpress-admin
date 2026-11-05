@@ -13,3 +13,4 @@ dependencies:
   - drupal:content_moderation
   - drupal:image
   - drupal:path
+  - drupal:text
